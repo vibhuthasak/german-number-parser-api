@@ -1,5 +1,4 @@
-import boto3
-import logging
+import boto3, logging, json
 
 logger = logging.getLogger(__name__)
 
@@ -11,7 +10,7 @@ def publishToProcessQueue(message):
     try:
         response = sqs_client.send_message(
             QueueUrl="https://sqs.ap-southeast-1.amazonaws.com/307676294310/numbers-to-process",
-            MessageBody=message,
+            MessageBody=json.dumps(message),
         )
     except Exception as error:
         logger.exception("Save failed")
