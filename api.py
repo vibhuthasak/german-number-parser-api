@@ -1,5 +1,6 @@
 from flask import Flask, request
 import lib.handlers as handlers
+from lib import utility
 
 app = Flask(__name__)
 
@@ -22,6 +23,25 @@ def getAllTask(task_id):
         if request.method == "DELETE":
             task = handlers.deleteTask(task_id)
         return {"error": False, "response": task}, 200
+    except Exception as e:
+        return {"error": True, "response": str(e)}, 500
+
+
+@app.route("/process", methods=["POST"])
+def processFile():
+    try:
+        file = request.files
+        if "file" not in file:
+            return {"error": True, "response": "No file on the request"}, 400
+        # Validate file
+        reqFile = file["file"]
+        if not utility.fileValidator(reqFile):
+            return {"error": True, "description": "File Validation failed"}, 400
+        fileResponse = handlers.processFile(reqFile)
+        if not fileResponse["error"]:
+            return {"error": False, "response": fileResponse["description"]}, 200
+        else:
+            raise Exception(fileResponse["description"])
     except Exception as e:
         return {"error": True, "response": str(e)}, 500
 
