@@ -31,3 +31,11 @@ def saveFileOnS3(file, key):
         return {"error": True, "description": str(error)}
     else:
         return {"error": False, "description": response}
+
+
+def fileValidator(file):
+    # Should be a text
+    if file.content_type != "text/plain":
+        return False
+    else:
+        return True
