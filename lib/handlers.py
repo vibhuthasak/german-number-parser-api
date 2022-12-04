@@ -11,3 +11,11 @@ def getAllTask(taskId):
         raise Exception(taskList["description"])
     else:
         return taskList["description"]["taskId"]
+
+
+def deleteTask(taskId):
+    task = db.deleteTask(taskId)
+    if task["error"]:
+        raise Exception(task["description"])
+    else:
+        return task["description"]["taskId"]

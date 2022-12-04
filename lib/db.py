@@ -48,3 +48,15 @@ def getTask(taskId):
     except Exception as error:
         logger.exception("Select failed")
         return {"error": True, "description": str(error)}
+
+
+def deleteTask(taskId):
+    try:
+        with Session(engine) as session:
+            task = session.get(Task, taskId)
+            session.delete(task)
+            session.commit()
+            return {"error": False, "description": {"taskId": task.task_id}}
+    except Exception as error:
+        logger.exception("Select failed")
+        return {"error": True, "description": str(error)}
