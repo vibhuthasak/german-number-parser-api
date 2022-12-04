@@ -16,6 +16,9 @@ class Task(Base):
     def __repr__(self) -> str:
         return super().__repr__()
 
+    def as_dict(self):
+        return {c.name: getattr(self, c.name) for c in self.__table__.columns}
+
 
 class Result(Base):
     __tablename__ = "tasks_result"
@@ -29,3 +32,6 @@ class Result(Base):
 
     def __repr__(self) -> str:
         return super().__repr__()
+
+    def as_dict(self):
+        return {c.name: getattr(self, c.name) for c in self.__table__.columns}
