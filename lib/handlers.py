@@ -31,7 +31,9 @@ def processFile(file):
         fileKey = str(uuid.uuid1().hex) + ".txt"
 
         # Save on system location
-        savedName = f"C:\\Users\Vibhutha\\Desktop\\NavVis-Code-Challenge-Cloud\\german-number-parser\\data\{secure_filename(fileKey)}"
+        savedName = (
+            f"/home/ec2-user/german-number-parser-api/data/{secure_filename(fileKey)}"
+        )
         file.save(savedName)
 
         # Save task on DB

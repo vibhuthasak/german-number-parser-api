@@ -14,7 +14,7 @@ def getAllTaskIds():
         return {"error": True, "response": str(e)}, 500
 
 
-@app.route("/task/<int:task_id>", methods=["GET", "DELETE"])
+@app.route("/task/<string:task_id>", methods=["GET", "DELETE"])
 def getAllTask(task_id):
     try:
         task = None
