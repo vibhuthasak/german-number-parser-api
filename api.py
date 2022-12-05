@@ -44,7 +44,3 @@ def processFile():
             raise Exception(fileResponse["description"])
     except Exception as e:
         return {"error": True, "response": str(e)}, 500
-
-
-if __name__ == "__main__":
-    app.run()
